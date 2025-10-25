@@ -12,7 +12,37 @@ bool is_pythagoric(int a, int b, int c);
 
 int main()
 {
-  std::cout << "Start\n";
+  int a = 0, b = 0, c = 0;
+  int count = 0;
+  std::cin >> c >> b;
+  while (std::cin >> a)
+  {
+    try
+    {
+      count += is_pythagoric(a, b, c);
+    }
+    catch (const std::overflow_error &e)
+    {
+      std::cerr << e.what() << "\n";
+      return 2;
+    }
+    c = b;
+    b = a;
+  }
+  if (std::cin.bad())
+  {
+    std::cerr << "Internal stream error!\n";
+    return 1;
+  }
+  else if (std::cin.eof())
+  {
+    std::cout << count << "\n";
+  }
+  else if (std::cin.fail())
+  {
+    std::cerr << "Unexpected input!\n";
+    return 1;
+  }
   return 0;
 }
 
